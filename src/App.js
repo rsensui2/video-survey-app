@@ -2,6 +2,7 @@ import React, { useState, lazy, Suspense } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Container, Grid, Paper, Typography, CircularProgress, Button, TextField, Link, Box } from '@mui/material';
 import * as XLSX from 'xlsx';
+import { HashRouter as Router } from 'react-router-dom';
 
 const VideoPlayer = lazy(() => import('./components/VideoPlayer'));
 const Survey = lazy(() => import('./components/Survey'));

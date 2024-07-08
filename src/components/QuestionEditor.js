@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, IconButton, Box, Grid } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, IconButton, Box, Grid, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { PrimaryButton, SecondaryButton } from './CommonButtons';
@@ -40,6 +41,13 @@ const QuestionEditor = ({ initialQuestions, onSave, onCancel }) => {
   const handleRemoveOption = (qIndex, oIndex) => {
     const newQuestions = [...questions];
     newQuestions[qIndex].options.splice(oIndex, 1);
+    setQuestions(newQuestions);
+  };
+
+  const handleCopyOptions = (qIndex) => {
+    if (qIndex === 0) return; // 最初の質問にはコピーする選択肢がない
+    const newQuestions = [...questions];
+    newQuestions[qIndex].options = [...newQuestions[qIndex - 1].options];
     setQuestions(newQuestions);
   };
 
@@ -102,9 +110,16 @@ const QuestionEditor = ({ initialQuestions, onSave, onCancel }) => {
                                   </Grid>
                                 </Grid>
                               ))}
-                              <SecondaryButton startIcon={<AddIcon />} onClick={() => handleAddOption(qIndex)} sx={{ mt: 1 }}>
-                                選択肢を追加
-                              </SecondaryButton>
+                              <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between' }}>
+                                <SecondaryButton startIcon={<AddIcon />} onClick={() => handleAddOption(qIndex)}>
+                                  選択肢を追加
+                                </SecondaryButton>
+                                {qIndex > 0 && (
+                                  <SecondaryButton startIcon={<ContentCopyIcon />} onClick={() => handleCopyOptions(qIndex)}>
+                                    前の質問の選択肢をコピー
+                                  </SecondaryButton>
+                                )}
+                              </Box>
                             </Box>
                           </Grid>
                           <Grid item>

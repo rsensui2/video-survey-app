@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Radio, RadioGroup, FormControlLabel, Typography, Container, Paper, Grid } from '@mui/material';
+import { Box, Button, Radio, RadioGroup, FormControlLabel, Typography, Container, Paper, Grid } from '@mui/material';
 import { PrimaryButton, SecondaryButton } from './CommonButtons';
 
 const Survey = ({ questions, onComplete, goToNextStep, goToPreviousStep, isLastStep, goToTop }) => {
@@ -23,9 +23,10 @@ const Survey = ({ questions, onComplete, goToNextStep, goToPreviousStep, isLastS
           <Box key={index} sx={{ mb: 4 }}>
             <Typography variant="body1" sx={{ mb: 2, fontWeight: 'bold' }}>{`Q${index + 1}. ${question.text}`}</Typography>
             <RadioGroup
+              row
               value={answers[index]}
               onChange={(e) => handleAnswerChange(index, e.target.value)}
-              sx={{ pl: 2 }}
+              sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}
             >
               {question.options.map((option, optionIndex) => (
                 <FormControlLabel
@@ -33,6 +34,7 @@ const Survey = ({ questions, onComplete, goToNextStep, goToPreviousStep, isLastS
                   value={option}
                   control={<Radio color="primary" />}
                   label={option}
+                  sx={{ flexBasis: { xs: '100%', sm: '45%', md: 'auto' } }}
                 />
               ))}
             </RadioGroup>
@@ -40,19 +42,13 @@ const Survey = ({ questions, onComplete, goToNextStep, goToPreviousStep, isLastS
         ))}
         <Grid container spacing={2} justifyContent="center" sx={{ mt: 4 }}>
           <Grid item>
-            <SecondaryButton onClick={goToPreviousStep}>
-              戻る
-            </SecondaryButton>
+            <SecondaryButton onClick={goToPreviousStep}>戻る</SecondaryButton>
           </Grid>
           <Grid item>
-            <PrimaryButton onClick={handleSubmit}>
-              {isLastStep ? '完了' : '次へ'}
-            </PrimaryButton>
+            <PrimaryButton onClick={handleSubmit}>{isLastStep ? '完了' : '次へ'}</PrimaryButton>
           </Grid>
           <Grid item>
-            <SecondaryButton onClick={goToTop}>
-              トップに戻る
-            </SecondaryButton>
+            <SecondaryButton onClick={goToTop}>トップに戻る</SecondaryButton>
           </Grid>
         </Grid>
       </Paper>

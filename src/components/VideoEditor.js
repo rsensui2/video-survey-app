@@ -57,20 +57,20 @@ const VideoEditor = ({ initialVideos, onSave, onCancel }) => {
                           </Grid>
                           <Grid item xs>
                             <TextField
-                              label={`動画 ${index + 1} のID`}
-                              variant="outlined"
-                              fullWidth
-                              value={video.id}
-                              onChange={(e) => handleVideoChange(index, 'id', e.target.value)}
-                              placeholder="動画IDを入力してください"
-                            />
-                            <TextField
                               label={`動画 ${index + 1} のタイトル`}
                               variant="outlined"
                               fullWidth
                               value={video.title}
                               onChange={(e) => handleVideoChange(index, 'title', e.target.value)}
                               placeholder="動画タイトルを入力してください"
+                            />
+                            <TextField
+                              label={`動画 ${index + 1} のID`}
+                              variant="outlined"
+                              fullWidth
+                              value={video.id}
+                              onChange={(e) => handleVideoChange(index, 'id', e.target.value)}
+                              placeholder="動画IDを入力してください"
                               sx={{ mt: 1 }}
                             />
                           </Grid>
